@@ -84,6 +84,7 @@ public class CmNamespaceHandler implements NamespaceHandler {
     public static final String BLUEPRINT_CM_NAMESPACE_1_1 = "http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0";
     public static final String BLUEPRINT_CM_NAMESPACE_1_2 = "http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.2.0";
     public static final String BLUEPRINT_CM_NAMESPACE_1_3 = "http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.3.0";
+    public static final String BLUEPRINT_CM_NAMESPACE_1_4 = "http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.4.0";
     public static final String BLUEPRINT_EXT_NAMESPACE_V1_0 = "http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.0.0";
     public static final String BLUEPRINT_EXT_NAMESPACE_V1_1 = "http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.1.0";
     public static final String BLUEPRINT_EXT_NAMESPACE_V1_2 = "http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.2.0";
@@ -111,6 +112,7 @@ public class CmNamespaceHandler implements NamespaceHandler {
     public static final String PLACEHOLDER_SUFFIX_ATTRIBUTE = "placeholder-suffix";
     public static final String DEFAULTS_REF_ATTRIBUTE = "defaults-ref";
     public static final String UPDATE_STRATEGY_ATTRIBUTE = "update-strategy";
+    public static final String SUPPORT_MULTI_LOCATIONS = "support-multi-locations";
     public static final String UPDATE_METHOD_ATTRIBUTE = "update-method";
     public static final String FACTORY_PID_ATTRIBUTE = "factory-pid";
     public static final String AUTO_EXPORT_ATTRIBUTE = "auto-export";
@@ -287,6 +289,9 @@ public class CmNamespaceHandler implements NamespaceHandler {
         String updateStrategy = element.getAttribute(UPDATE_STRATEGY_ATTRIBUTE);
         if (updateStrategy != null) {
             metadata.addProperty("updateStrategy", createValue(context, updateStrategy));
+        }
+        if (element.hasAttribute(SUPPORT_MULTI_LOCATIONS)) {
+            metadata.addProperty("supportMultiLocations", createValue(context, element.getAttribute(SUPPORT_MULTI_LOCATIONS)));
         }
         metadata.addProperty("managedObjectManager", createRef(context, MANAGED_OBJECT_MANAGER_NAME));
         // Parse elements
@@ -627,7 +632,8 @@ public class CmNamespaceHandler implements NamespaceHandler {
         return BLUEPRINT_CM_NAMESPACE_1_0.equals(uri)
                 || BLUEPRINT_CM_NAMESPACE_1_1.equals(uri)
                 || BLUEPRINT_CM_NAMESPACE_1_2.equals(uri)
-                || BLUEPRINT_CM_NAMESPACE_1_3.equals(uri);
+                || BLUEPRINT_CM_NAMESPACE_1_3.equals(uri)
+                || BLUEPRINT_CM_NAMESPACE_1_4.equals(uri);
     }
 
     public static boolean isExtNamespace(String uri) {

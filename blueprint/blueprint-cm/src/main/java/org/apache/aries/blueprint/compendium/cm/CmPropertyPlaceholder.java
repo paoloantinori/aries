@@ -124,7 +124,9 @@ public class CmPropertyPlaceholder extends PropertyPlaceholder implements Manage
     }
 
     public void updated(Dictionary props) {
-        if (!initialized) {
+        LOGGER.debug("Invoking updated() with properties {}", props);
+        if (!initialized && props != null) {
+            LOGGER.debug("Initializing properties");
             properties = props;
             initialized = true;
             return;
