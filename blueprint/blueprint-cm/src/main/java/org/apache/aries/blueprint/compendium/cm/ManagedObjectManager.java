@@ -53,9 +53,11 @@ public class ManagedObjectManager {
 
         try {
             Dictionary<String, Object> config = CmUtils.getProperties(reg.getRegistration().getReference(), key);
+            LOGGER.debug("Invoking updated() just after ManagedObject registration with config: " + config);
             cm.updated(config);
         } catch (Throwable t) {
             // Ignore
+            LOGGER.debug("Error updating properties.", t);
         }
     }
 
